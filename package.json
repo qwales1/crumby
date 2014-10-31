@@ -1,7 +1,7 @@
 {
   "name": "crumby",
   "version": "1.0.0",
-  "description": "Breaks urls into breadcrumbs",
+  "description": "Breaks uris into breadcrumbs",
   "main": "index.js",
   "scripts": {
     "test": "mocha ./**/*_test.js"
@@ -11,7 +11,7 @@
     "url": "https://github.com/qwales1/crumby.git"
   },
   "keywords": [
-    "urls",
+    "uri",
     "breadcrumbs"
   ],
   "author": "Chris Wales <qwales1@gmail.com>",

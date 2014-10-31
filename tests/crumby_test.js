@@ -2,24 +2,24 @@ var should = require('should')
 
 describe('Crumby', function(){
 
-  it('#_split() should set break up url into array of parts', function(done){
+  it('#_split() should set break up uri into array of parts', function(done){
     var Crumby = require('../');
     var crumby = new Crumby();
-    var currentUrl = '/onelevel/twolevel/threelevel';
-    crumby._split(currentUrl);
+    var currentUri = '/onelevel/twolevel/threelevel';
+    crumby._split(currentUri);
     crumby._parts.length.should.be.exactly(4);
     done();
   })
   it('#_clean() should remove first index', function(done){
     var Crumby = require('../');
     var crumby = new Crumby();
-    var currentUrl = '/'
-    crumby._split(currentUrl);
+    var currentUri = '/'
+    crumby._split(currentUri);
     crumby._clean();
     crumby._parts.length.should.be.exactly(1);
     crumby._parts = [];
-    currentUrl = '/cool/test/kid';
-    crumby._split(currentUrl)
+    currentUri = '/cool/test/kid';
+    crumby._split(currentUri)
     crumby._clean();
     crumby._parts.length.should.be.exactly(3);
     done();
@@ -33,11 +33,20 @@ describe('Crumby', function(){
     crumby._value[0].path[0].should.be.exactly('/');
     done();
   })
+  it('#_getAlias should return the alias for given part', function(done){
+    var Crumby = require('../');
+    var crumby = new Crumby({test_alias : 'Test Success'});
+    var alias = crumby._getAlias('test_alias');
+    alias.should.be.exactly('Test Success');
+    var not_found_alias = crumby._getAlias('does_not_exist_at_all_chief');
+    not_found_alias.should.be.exactly('does_not_exist_at_all_chief');
+    done();
+  });
   it('#_parse() should return an array of breadcrumb objects', function(done){
     var Crumby = require('../');
     var crumby = new Crumby();
-    var url = '/levelone/leveltwo/levelthree';
-    var crumbs = crumby.parse(url)
+    var uri = '/levelone/leveltwo/levelthree';
+    var crumbs = crumby.parse(uri)
     crumby._value.length.should.be.exactly(4);
     crumby._value[0].should.have.property('name', 'home');
     crumby._value[0].should.have.property('path','/');
@@ -49,14 +58,28 @@ describe('Crumby', function(){
     crumby._value[3].should.have.property('path', '/levelone/leveltwo/levelthree');
     done();
   });
-  it('#_getAlias should return the alias for given part', function(done){
+
+  it('#_parse() should return an array of breadcrumb objects with aliases', function(done){
     var Crumby = require('../');
-    var crumby = new Crumby({'test_alias' : 'Test Success'});
-    var alias = crumby._getAlias('test_alias');
-    alias.should.be.exactly('Test Success');
-    var not_found_alias = crumby._getAlias('does_not_exist_at_all_chief');
-    not_found_alias.should.be.exactly('does_not_exist_at_all_chief');
+    var crumby = new Crumby({
+        levelone : 'ONE',
+        leveltwo : 'TWO',
+        levelthree : 'ETC'
+    });
+    var uri = '/levelone/leveltwo/levelthree';
+    var crumbs = crumby.parse(uri)
+    crumby._value.length.should.be.exactly(4);
+    crumby._value[0].should.have.property('name', 'home');
+    crumby._value[0].should.have.property('path','/');
+    crumby._value[1].should.have.property('name', 'ONE');
+    crumby._value[1].should.have.property('path', '/levelone')
+    crumby._value[2].should.have.property('name', 'TWO');
+    crumby._value[2].should.have.property('path', '/levelone/leveltwo');
+    crumby._value[3].should.have.property('name', 'ETC');
+    crumby._value[3].should.have.property('path', '/levelone/leveltwo/levelthree');
     done();
-  });
+
+
+  })
 
 });
