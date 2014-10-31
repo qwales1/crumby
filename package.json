@@ -1,0 +1,27 @@
+{
+  "name": "crumby",
+  "version": "1.0.0",
+  "description": "Breaks urls into breadcrumbs",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha ./**/*_test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/qwales1/crumby.git"
+  },
+  "keywords": [
+    "urls",
+    "breadcrumbs"
+  ],
+  "author": "Chris Wales <qwales1@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/qwales1/crumby/issues"
+  },
+  "homepage": "https://github.com/qwales1/crumby",
+  "devDependencies": {
+    "mocha": "^2.0.1",
+    "should": "^4.1.0"
+  }
+}
