@@ -17,9 +17,11 @@ var Crumby = function(opts){
         }
       }
       this._crumb = function(part){
+
         var index = this._parts.indexOf(part) ? this._parts.indexOf(part)+1 : 1;
         var path = this._parts.slice(0,index);
-        var alias = this._getAlias(part);
+        var name = part.indexOf('?') !== -1 ? part.split('?')[0] : part;
+        var alias = this._getAlias(name);
         path[0] = '/'+path[0];
         return {'name' : decodeURIComponent(alias), path: path.join('/')}
       }
