@@ -21,7 +21,7 @@ var Crumby = function(opts){
         var path = this._parts.slice(0,index);
         var alias = this._getAlias(part);
         path[0] = '/'+path[0];
-        return {'name' : alias, path: path.join('/')}
+        return {'name' : decodeURIComponent(alias), path: path.join('/')}
       }
       this._getAlias = function(part){
         return this._alias[part] || part;

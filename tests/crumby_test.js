@@ -78,8 +78,23 @@ describe('Crumby', function(){
     crumby._value[3].should.have.property('name', 'ETC');
     crumby._value[3].should.have.property('path', '/levelone/leveltwo/levelthree');
     done();
-
-
   })
+  it('#_parse() should return an array of breadcrumb objects with decode uri components', function(done){
+    var Crumby = require('../');
+    var crumby = new Crumby({});
+    var uri = '/level%24one/level%3D%2B%2Btwo/level%20three';
+    var crumbs = crumby.parse(uri)
+    crumby._value.length.should.be.exactly(4);
+    crumby._value[0].should.have.property('name', 'home');
+    crumby._value[0].should.have.property('path','/');
+    crumby._value[1].should.have.property('name', 'level$one');
+    crumby._value[1].should.have.property('path', '/level%24one')
+    crumby._value[2].should.have.property('name', 'level=++two');
+    crumby._value[2].should.have.property('path', '/level%24one/level%3D%2B%2Btwo');
+    crumby._value[3].should.have.property('name', 'level three');
+    crumby._value[3].should.have.property('path', '/level%24one/level%3D%2B%2Btwo/level%20three');
+    done();
+  })
+
 
 });
